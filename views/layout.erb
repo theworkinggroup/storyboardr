@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title> Make some stories! </title>
+    <style>
+      table.container td {
+        border: 1px dashed #ccc;
+        vertical-align: top;
+        width: 33%;
+      }
+      table.story {
+        display: block;
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      table.story td, table.story th {
+        border: none;
+        vertical-align: top;
+      }
+      table.story th {
+        white-space: nowrap;
+        font-size: 12px;
+        background-color: #e5e5e5;
+        color: #000;
+        padding: 5px 20px;
+      }
+      table.story th.estimate {
+        width: 100%;
+        text-align: right;
+      }
+      table.story td.story {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding: 20px;
+        font-size: 14px;
+        height: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
