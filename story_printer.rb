@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'fastercsv'
+require 'pp'
 require 'lib/extensions'
 require 'prawn'
 require 'prawn/layout'
@@ -14,34 +15,33 @@ class StoryPrinter < Sinatra::Base
     filename = params[:file][:filename]
     file = params[:file][:tempfile]
     
-    @stories = []
     data = FasterCSV.parse(file)
-    data.each do |project, type, story, estimate|
-      @stories << {
+    @stories = data.collect do |project, type, story, estimate|
+       {
         :project  => project,
         :type     => type,
         :story    => story,
         :estimate => estimate
       }
     end
+    
     # erb :output
-    pdf = ::Prawn::Document.new
-    items = @stories.map do |story|
-      [
-        story[:project],
-        story[:type],
-        story[:story],
-        story[:estimate]
-      ]
+    pdf = ::Prawn::Document.new(:margin => 0)
+    pdf.font 'Helvetica', :size => 10
+    @stories.in_groups_of(8, false) do |page|
+      page.in_groups_of(2, false) do |row|
+        pdf.text row[0][:project]
+        
+                
+      end
+      
     end
     
-    pdf.font 'Helvetica', :size => 10
-    pdf.table items, 
-      :border_style => :grid,
-      :row_colors   => ["FFFFFF","DDDDDD"],
-      :align        => { 0 => :left, 1 => :left, 2 => :left, 3 => :left },
-      :font_size    => 7
+    
+        
+        
     content_type 'application/pdf'
+    attachment 'test.pdf'
     pdf.render
   end
   
