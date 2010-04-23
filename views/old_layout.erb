@@ -2,10 +2,15 @@
   <head>
     <title> Make some stories! </title>
     <style>
+      table.container {
+        padding: 0;
+        page-break-after: always;
+      }
       table.container td {
         border: 1px dashed #ccc;
         vertical-align: top;
         width: 33%;
+        padding: 0;
       }
       table.story {
         display: block;
@@ -28,11 +33,9 @@
         text-align: right;
       }
       table.story td.story {
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
         padding: 20px;
         font-size: 14px;
-        height: 150px;
+        height: 140px;
       }
     </style>
   </head>

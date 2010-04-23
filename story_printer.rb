@@ -1,7 +1,8 @@
-require 'rubygems'
 require 'sinatra/base'
 require 'fastercsv'
 require 'lib/extensions'
+require 'prawn'
+require 'prawn/layout'
 
 class StoryPrinter < Sinatra::Base
   
@@ -23,7 +24,25 @@ class StoryPrinter < Sinatra::Base
         :estimate => estimate
       }
     end
-    erb :output
+    # erb :output
+    pdf = ::Prawn::Document.new
+    items = @stories.map do |story|
+      [
+        story[:project],
+        story[:type],
+        story[:story],
+        story[:estimate]
+      ]
+    end
+    
+    pdf.font 'Helvetica', :size => 10
+    pdf.table items, 
+      :border_style => :grid,
+      :row_colors   => ["FFFFFF","DDDDDD"],
+      :align        => { 0 => :left, 1 => :left, 2 => :left, 3 => :left },
+      :font_size    => 7
+    content_type 'application/pdf'
+    pdf.render
   end
   
 end
