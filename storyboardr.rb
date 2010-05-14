@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'fastercsv'
 require 'lib/extensions'
 
-$: << File.expand_path('lib/prawn/lib', File.dirname(__FILE__))
+$: << File.expand_path('lib/prawn-edge/lib', File.dirname(__FILE__))
 require 'prawn'
 
 
