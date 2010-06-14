@@ -81,8 +81,8 @@ protected
     @project = story[:project]
     @color_index ||= 0
     @color_index += 1 if @old_project != @project
-    color = COLORS[@color_index]
     @color_index = 0 if COLORS[@color_index].nil?
+    color = COLORS[@color_index]
     
     [[  Prawn::Table::Cell.make(@pdf, "##{story[:line]}",
           :width            => 35, 
@@ -90,7 +90,7 @@ protected
           :font_size        => 11,
           :background_color => color,
           :text_color       => 'ffffff'),
-        Prawn::Table::Cell.make(@pdf, [story[:project], story[:type]].join(' - '),
+        Prawn::Table::Cell.make(@pdf, [story[:project], story[:type]].join(' - ')[0..35],
           :width        => 224, 
           :border_color => 'cccccc', 
           :font_size    => 11, 
