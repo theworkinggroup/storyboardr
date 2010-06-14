@@ -13,7 +13,7 @@ class Storyboardr < Sinatra::Base
     FF620C
     FC000E
     0A0BFF
-    B717E8
+    BE1E2D
     544B5C
     C8477F
   )
@@ -80,7 +80,7 @@ protected
     @old_project = @project
     @project = story[:project]
     @color_index ||= 0
-    @color_index += 1 if @old_project != @project
+    @color_index += 1 if @old_project.to_s.downcase != @project.to_s.downcase
     @color_index = 0 if COLORS[@color_index].nil?
     color = COLORS[@color_index]
     
