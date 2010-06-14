@@ -5,8 +5,18 @@ require 'lib/extensions'
 $: << File.expand_path('lib/prawn-edge/lib', File.dirname(__FILE__))
 require 'prawn'
 
-
 class Storyboardr < Sinatra::Base
+  
+  COLORS = %w(
+    FCD600
+    1E7114
+    FF620C
+    FC000E
+    0A0BFF
+    B717E8
+    544B5C
+    C8477F
+  )
   
   get '/' do
     erb :index
@@ -66,11 +76,20 @@ class Storyboardr < Sinatra::Base
 protected
 
   def rendered_story(story)
+    
+    @old_project = @project
+    @project = story[:project]
+    @color_index ||= 0
+    @color_index += 1 if @old_project != @project
+    color = COLORS[@color_index]
+    @color_index = 0 if COLORS[@color_index].nil?
+    
     [[  Prawn::Table::Cell.make(@pdf, "##{story[:line]}",
-          :width        => 35, 
-          :border_color => 'cccccc', 
-          :font_size    => 11, 
-          :text_color   => '666666'),
+          :width            => 35, 
+          :border_color     => 'cccccc', 
+          :font_size        => 11,
+          :background_color => color,
+          :text_color       => 'ffffff'),
         Prawn::Table::Cell.make(@pdf, [story[:project], story[:type]].join(' - '),
           :width        => 224, 
           :border_color => 'cccccc', 
