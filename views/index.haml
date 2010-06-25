@@ -1,0 +1,20 @@
+%form.upload{:action => '/', :method => 'post', :enctype => 'multipart/form-data'}
+  %input.file{:type => 'file', :name => 'file'}
+  %input{:type => 'submit', :value => 'Upload CSV', :class => 'submit'}
+  
+- if @stories
+  .stories
+    - @stories.each_with_index do |story, index|
+      .story{:class => story[:color]}
+        .header
+          .index
+            = "##{index}"
+          .project
+            = story[:project]
+          .category
+            = story[:category]
+          .estimate
+            = story[:estimate]
+        .description
+          = story[:description]
+          
