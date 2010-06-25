@@ -3,12 +3,12 @@
   %input{:type => 'submit', :value => 'Upload CSV', :class => 'submit'}
   
 - if @stories
-  .stories
+  #stories
     - @stories.each_with_index do |story, index|
       .story{:class => story[:color]}
         .header
           .index
-            = "##{index}"
+            = "##{index + 1}"
           .project
             = story[:project]
           .category
